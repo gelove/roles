@@ -1,23 +1,16 @@
 <?php
 
-namespace Bican\Roles\Traits;
+namespace GE\Roles\Traits;
+
+use GE\Roles\Models\Permission;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 trait RoleHasRelations
 {
     /**
-     * Role belongs to many permissions.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function permissions()
-    {
-        return $this->belongsToMany(config('roles.models.permission'))->withTimestamps();
-    }
-
-    /**
      * Role belongs to many users.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return BelongsToMany
      */
     public function users()
     {
@@ -27,7 +20,7 @@ trait RoleHasRelations
     /**
      * Attach permission to a role.
      *
-     * @param int|\Bican\Roles\Models\Permission $permission
+     * @param int|Permission $permission
      * @return int|bool
      */
     public function attachPermission($permission)
@@ -36,9 +29,19 @@ trait RoleHasRelations
     }
 
     /**
+     * Role belongs to many permissions.
+     *
+     * @return BelongsToMany
+     */
+    public function permissions()
+    {
+        return $this->belongsToMany(config('roles.models.permission'))->withTimestamps();
+    }
+
+    /**
      * Detach permission from a role.
      *
-     * @param int|\Bican\Roles\Models\Permission $permission
+     * @param int|Permission $permission
      * @return int
      */
     public function detachPermission($permission)

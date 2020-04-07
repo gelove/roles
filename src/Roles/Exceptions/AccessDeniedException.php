@@ -1,6 +1,6 @@
 <?php
 
-namespace Bican\Roles\Exceptions;
+namespace GE\Roles\Exceptions;
 
 use Exception;
 

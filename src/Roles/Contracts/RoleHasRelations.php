@@ -1,27 +1,30 @@
 <?php
 
-namespace Bican\Roles\Contracts;
+namespace GE\Roles\Contracts;
+
+use GE\Roles\Models\Permission;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 interface RoleHasRelations
 {
     /**
      * Role belongs to many permissions.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return BelongsToMany
      */
     public function permissions();
 
     /**
      * Role belongs to many users.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return BelongsToMany
      */
     public function users();
 
     /**
      * Attach permission to a role.
      *
-     * @param int|\Bican\Roles\Models\Permission $permission
+     * @param int|Permission $permission
      * @return int|bool
      */
     public function attachPermission($permission);
@@ -29,7 +32,7 @@ interface RoleHasRelations
     /**
      * Detach permission from a role.
      *
-     * @param int|\Bican\Roles\Models\Permission $permission
+     * @param int|Permission $permission
      * @return int
      */
     public function detachPermission($permission);

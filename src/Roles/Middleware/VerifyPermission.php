@@ -1,22 +1,23 @@
 <?php
 
-namespace Bican\Roles\Middleware;
+namespace GE\Roles\Middleware;
 
 use Closure;
+use GE\Roles\Exceptions\PermissionDeniedException;
 use Illuminate\Contracts\Auth\Guard;
-use Bican\Roles\Exceptions\PermissionDeniedException;
+use Illuminate\Http\Request;
 
 class VerifyPermission
 {
     /**
-     * @var \Illuminate\Contracts\Auth\Guard
+     * @var Guard
      */
     protected $auth;
 
     /**
      * Create a new filter instance.
      *
-     * @param \Illuminate\Contracts\Auth\Guard $auth
+     * @param Guard $auth
      * @return void
      */
     public function __construct(Guard $auth)
@@ -27,13 +28,13 @@ class VerifyPermission
     /**
      * Handle an incoming request.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \Closure $next
+     * @param Request $request
+     * @param Closure $next
      * @param int|string $permission
      * @return mixed
-     * @throws \Bican\Roles\Exceptions\PermissionDeniedException
+     * @throws PermissionDeniedException
      */
-    public function handle($request, Closure $next, $permission)
+    public function handle(Request $request, Closure $next, $permission)
     {
         if ($this->auth->check() && $this->auth->user()->can($permission)) {
             return $next($request);

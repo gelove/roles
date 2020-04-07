@@ -34,14 +34,14 @@ return [
     |--------------------------------------------------------------------------
     |
     | If you want, you can replace default models from this package by models
-    | you created. Have a look at `Bican\Roles\Models\Role` model and
-    | `Bican\Roles\Models\Permission` model.
+    | you created. Have a look at `GE\Roles\Models\Role` model and
+    | `GE\Roles\Models\Permission` model.
     |
     */
 
     'models' => [
-        'role' => Bican\Roles\Models\Role::class,
-        'permission' => Bican\Roles\Models\Permission::class,
+        'role' => GE\Roles\Models\Role::class,
+        'permission' => GE\Roles\Models\Permission::class,
     ],
 
     /*

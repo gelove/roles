@@ -1,10 +1,10 @@
 <?php
 
-namespace Bican\Roles;
+namespace GE\Roles;
 
 use Illuminate\Support\ServiceProvider;
 
-class RolesServiceProvider extends ServiceProvider
+class LumenRolesServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap any application services.
@@ -13,25 +13,7 @@ class RolesServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->publishes([
-            __DIR__ . '/../../config/roles.php' => config_path('roles.php')
-        ], 'config');
-
-        $this->publishes([
-            __DIR__ . '/../../migrations/' => base_path('/database/migrations')
-        ], 'migrations');
-
         $this->registerBladeExtensions();
-    }
-
-    /**
-     * Register any application services.
-     *
-     * @return void
-     */
-    public function register()
-    {
-        $this->mergeConfigFrom(__DIR__ . '/../../config/roles.php', 'roles');
     }
 
     /**
@@ -76,5 +58,15 @@ class RolesServiceProvider extends ServiceProvider
         $blade->directive('endallowed', function () {
             return "<?php endif; ?>";
         });
+    }
+
+    /**
+     * Register any application services.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        $this->mergeConfigFrom(__DIR__ . '/../config/roles.php', 'roles');
     }
 }

@@ -1,22 +1,23 @@
 <?php
 
-namespace Bican\Roles\Middleware;
+namespace GE\Roles\Middleware;
 
 use Closure;
+use GE\Roles\Exceptions\LevelDeniedException;
 use Illuminate\Contracts\Auth\Guard;
-use Bican\Roles\Exceptions\LevelDeniedException;
+use Illuminate\Http\Request;
 
 class VerifyLevel
 {
     /**
-     * @var \Illuminate\Contracts\Auth\Guard
+     * @var Guard
      */
     protected $auth;
 
     /**
      * Create a new filter instance.
      *
-     * @param \Illuminate\Contracts\Auth\Guard $auth
+     * @param Guard $auth
      * @return void
      */
     public function __construct(Guard $auth)
@@ -27,13 +28,13 @@ class VerifyLevel
     /**
      * Handle an incoming request.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \Closure $next
+     * @param Request $request
+     * @param Closure $next
      * @param int $level
      * @return mixed
-     * @throws \Bican\Roles\Exceptions\LevelDeniedException
+     * @throws LevelDeniedException
      */
-    public function handle($request, Closure $next, $level)
+    public function handle(Request $request, Closure $next, int $level)
     {
         if ($this->auth->check() && $this->auth->user()->level() >= $level) {
             return $next($request);
